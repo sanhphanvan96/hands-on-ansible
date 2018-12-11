@@ -1,0 +1,20 @@
+acs1 ansible_ssh_host=192.168.33.10
+web1 ansible_ssh_host=192.168.33.20
+db1 ansible_ssh_host=192.168.33.30
+[acs]
+acs1
+
+[web]
+web1
+
+[db]
+db1
+
+[datacenter:children]
+acs
+web
+db
+
+[datacenter:vars]
+ansible_ssh_user=vagrant
+ansible_ssh_pass=vagrant
