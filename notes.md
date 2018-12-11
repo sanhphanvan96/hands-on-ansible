@@ -19,12 +19,14 @@ ansible all -i inventory_test -m setup -a "filter=ansible_mounts" --tree ./setup
 ```
 
 ## Playbook
+- Plays are ordered sets of tasks to execute against host selections from your inventory
+- Playbook is a file containing one or more plays
 - notify handles from task and handlers
 - condition clause: based on os family (```when: ansible_os_family == "Debian"```), based on output
 - using template: Jinja2 Engine
 
 ## Roles => Making your playbooks reusable
-
+- Roles are a packages of closely related Ansible content that can be shared more easily than plays alone
 - pre_tasks, post_tasks
 - import_playbook: webservers.yml
 
