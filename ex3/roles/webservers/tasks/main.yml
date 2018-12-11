@@ -1,0 +1,19 @@
+---
+- name: Ensure Apache is installed - RedHat
+  yum: name=httpd state=present
+  when: ansible_os_family == "RedHat"
+
+- name: Ensure Apache is installed - Debian
+  apt: name=apache2 state=present
+  when: ansible_os_family == "Debian"
+
+- name: Start Apache Services
+  service: name=httpd enabled=yes state=started
+
+- name: Deploy Configuration File
+  template: src=templates/httpd.j2 dest=/etc/httpd/conf/httpd.conf 
+  notify:
+    - Restart Apache
+
+- name: Copy Site Files
+  template: src=templates/index.j2 dest={{ doc_root }}/index.html

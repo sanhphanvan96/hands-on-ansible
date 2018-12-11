@@ -1,0 +1,57 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+  $script = <<SCRIPT
+yum update -y
+yum install sshpass -y
+SCRIPT
+  server_configs = [
+    {"hostname" => "acs", "ip" => "192.168.33.10", "port" => 2290, "memory_size" => "1024", "execute_script" => true},
+    {"hostname" => "web", "ip" => "192.168.33.20", "port" => 2291, "memory_size" => "1024", "execute_script" => true},
+    {"hostname" => "db", "ip" => "192.168.33.30", "port" => 2292, "memory_size" => "1024", "execute_script" => true}
+  ]
+  server_configs.each do |server_config|
+    config.vm.define server_config['hostname'] do |server|
+      server.vm.hostname = server_config['hostname']
+      server.vm.box = "bento/centos-7.4"
+      server.vm.box_url = "https://app.vagrantup.com/bento/boxes/centos-7.4"
+      server.vm.network :private_network, ip: server_config['ip']
+      server.vm.provider :virtualbox do |v|
+        v.customize ["modifyvm", :id, "--memory", server_config['memory_size']]
+      end
+      if server_config['execute_script'] then
+        server.vm.provision :shell, inline: $script
+      end
+    end
+  end
+
+  # config.vm.define "acs" do |acs|
+  #   acs.vm.box = "bento/centos-7.4"
+  #   acs.vm.hostname = "acs"
+  #   acs.vm.network "private_network", ip: "192.168.33.10"
+  #   acs.vm.provider "virtualbox" do |v|
+  #     v.customize ["modifyvm", :id, "--memory", 1024]
+  #   end
+  # end
+
+  # config.vm.define "web" do |web|
+  #   web.vm.box = "bento/centos-7.4"
+  #   web.vm.hostname = "web"
+  #   web.vm.network "private_network", ip: "192.168.33.20"
+  #   web.vm.network "forwarded_port", guest: 80, host: 8888
+  #   web.vm.provision "shell", inline: $script
+  #   web.vm.provider "virtualbox" do |v|
+  #     v.customize ["modifyvm", :id, "--memory", 1024]
+  #   end
+  # end
+
+  # config.vm.define "db" do |db|
+  #   db.vm.box = "bento/centos-7.4"
+  #   db.vm.hostname = "db"
+  #   db.vm.network "private_network", ip: "192.168.33.30"
+  #   db.vm.provider "virtualbox" do |v|
+  #     v.customize ["modifyvm", :id, "--memory", 1024]
+  #   end
+  # end
+end

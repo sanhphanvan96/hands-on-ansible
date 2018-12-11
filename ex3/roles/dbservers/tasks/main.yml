@@ -1,0 +1,11 @@
+---
+- name: Ensure Mariadb is installed
+  yum: 
+    name:
+      - mariadb
+      - mariadb-server
+    state: present
+  when: ansible_os_family == "RedHat"
+
+- name: Start Mariadb
+  service: name=mariadb state=started
