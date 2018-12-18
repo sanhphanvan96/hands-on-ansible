@@ -30,7 +30,13 @@ ansible all -i inventory_test -m setup -a "filter=ansible_mounts" --tree ./setup
 - pre_tasks, post_tasks
 - import_playbook: webservers.yml
 
-##
+## [Working with Inventory](https://docs.ansible.com/ansible/latest/user_guide/intro_inventory.html#working-with-inventory)
+- Hosts and Groups
+- Host Variables
+- Group Variables
+- Groups of Groups, and Group Variables
+
+## [Working With Playbooks](https://docs.ansible.com/ansible/latest/user_guide/playbooks.html#working-with-playbooks)
 
 
 # Errors:
@@ -44,6 +50,11 @@ ansible all -i inventory_test -m setup -a "filter=ansible_mounts" --tree ./setup
 host_key_checking=False
 ```
 - tmr solution: specify ```-u vagrant -k``` and type password ```vagrant``` by default
+
+## Vagrant: shared folder error
+```
+vagrant plugin install vagrant-vbguest
+```
 
 # Questions
 

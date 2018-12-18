@@ -1,27 +1,37 @@
-# -*- mode: ruby -*-
-# vi: set ft=ruby :
-
 Vagrant.configure("2") do |config|
-  $script = <<SCRIPT
-yum update -y
-yum install sshpass -y
+
+  # How to speed up “Yum” using Axelget 
+  # see https://www.hugeserver.com/kb/how-speedup-yum-axelget/
+  $script_common = <<SCRIPT
+  yum update -y
+  yum install epel-release -y
+  yum install yum-axelget -y
+  yum install sshpass git -y
+  cat '/vagrant/id_rsa.pub' >> /home/vagrant/.ssh/authorized_keys
 SCRIPT
+
+  $script_ci = <<SCRIPT
+  yum install ansible -y
+SCRIPT
+
   server_configs = [
-    {"hostname" => "acs", "ip" => "192.168.33.10", "port" => 2290, "memory_size" => "1024", "execute_script" => true},
-    {"hostname" => "web", "ip" => "192.168.33.20", "port" => 2291, "memory_size" => "1024", "execute_script" => true},
-    {"hostname" => "db", "ip" => "192.168.33.30", "port" => 2292, "memory_size" => "1024", "execute_script" => true}
+    {"hostname" => "ci", "ip" => "192.168.33.10", "memory_size" => "1024"},
+    {"hostname" => "web", "ip" => "192.168.33.20", "memory_size" => "1024"}
   ]
   server_configs.each do |server_config|
     config.vm.define server_config['hostname'] do |server|
       server.vm.hostname = server_config['hostname']
+
       server.vm.box = "bento/centos-7.4"
       server.vm.box_url = "https://app.vagrantup.com/bento/boxes/centos-7.4"
+
       server.vm.network :private_network, ip: server_config['ip']
       server.vm.provider :virtualbox do |v|
         v.customize ["modifyvm", :id, "--memory", server_config['memory_size']]
 
         # suggested fix for slow network performance
         # see https://github.com/mitchellh/vagrant/issues/1807
+        # DNS Not Working, see https://serverfault.com/a/506206/500039
         v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
         v.customize ["modifyvm", :id, "--natdnsproxy1", "on"]
 
@@ -29,9 +39,15 @@ SCRIPT
         v.customize ["modifyvm", :id, "--nictype1", "virtio" ]
         v.customize ["modifyvm", :id, "--nictype2", "virtio" ]
       end
-      if server_config['execute_script'] then
-        server.vm.provision :shell, inline: $script
+
+      # update for both vms
+      server.vm.provision :shell, inline: $script_common
+
+      # install ansible for ci
+      if server_config['hostname'] = 'ci' then
+        server.vm.provision :shell, inline: $script_ci
       end
+
     end
   end
 end
