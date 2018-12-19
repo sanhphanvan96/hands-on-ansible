@@ -1,0 +1,9 @@
+---
+- name: Add apt-fast key
+  apt_repository:
+    repo: "repo"
+    state: present
+    update_cache: yes
+
+- name: Install apt-fast
+  apt: "name=apt-fast state=installed"
