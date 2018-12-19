@@ -2,5 +2,9 @@
 - hosts:
     - ci
   roles:
+    - app.apt-fast
+    - fourforbusiness.oh-my-zsh
     - geerlingguy.git
     - geerlingguy.docker
+    - app.fcitx-unikey
+    - ngetchell.vscode

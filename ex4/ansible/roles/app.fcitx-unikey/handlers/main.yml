@@ -1,0 +1,9 @@
+---
+- name: Set fcitx-unikey to become input method
+  command: "im-config -n fcitx"
+  notify: Copy fcitx-unikey configuration file
+
+- name: Copy fcitx-unikey configuration file
+  copy:
+    src: "fcitx-unikey.desc"
+    dest: "/usr/share/fcitx/configdesc/fcitx-unikey.desc"

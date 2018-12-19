@@ -1,0 +1,7 @@
+---
+- name: Install fcitx-unikey
+  apt:
+    name: fcitx-unikey 
+    state: present
+  notify: Set fcitx-unikey to become input method
+

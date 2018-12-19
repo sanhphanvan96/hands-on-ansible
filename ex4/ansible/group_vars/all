@@ -1,2 +1,23 @@
-
+# for oh-oh_my_zsh
 oh_my_zsh_theme: gnzh
+users:
+  - username: root
+    oh_my_zsh:
+      theme: gnzh
+      plugins:
+        - git
+        - docker 
+  - username: vagrant
+    oh_my_zsh:
+      theme: gnzh
+      plugins:
+        - git
+        - docker 
+# for docker
+docker_users:
+  - root
+  - vagrant
+
+# vscode
+vscode_install: true
+vscode_insiders_install: true

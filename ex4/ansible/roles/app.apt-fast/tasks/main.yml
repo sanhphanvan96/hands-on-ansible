@@ -1,9 +1,12 @@
 ---
 - name: Add apt-fast key
   apt_repository:
-    repo: "repo"
+    repo: "ppa:apt-fast/stable"
     state: present
     update_cache: yes
 
 - name: Install apt-fast
-  apt: "name=apt-fast state=installed"
+  apt:
+    name: apt-fast 
+    state: present
+  when: ansible_os_family == 'Debian'

@@ -1,0 +1,28 @@
+services: docker
+env:
+  - distro: ubuntu1604
+  - distro: ubuntu1404
+script:
+  # Configure test script so we can run extra tests after playbook is run.
+  - export container_id=$(date +%s)
+  - export cleanup=false
+
+  - wget -O ${PWD}/tests/test.sh https://gist.githubusercontent.com/geerlingguy/73ef1e5ee45d8694570f334be385e181/raw/
+  
+  - chmod +x ${PWD}/tests/test.sh
+  - "${PWD}/tests/test.sh"
+  
+  # Check if zsh was installed
+  - >
+    sudo docker exec ${container_id} sh -c "[ -f /home/test_usr1/.zshrc ] && [ -f /home/test_usr2/.zshrc ]"
+  # Check if plugins are present
+  - >
+    sudo docker exec ${container_id} sh -c "cat /home/test_usr1/.zshrc | grep ^plugins= | grep test_plugin1 && cat /home/test_usr1/.zshrc | grep ^plugins= | grep test_plugin2"
+  - >
+    sudo docker exec ${container_id} sh -c "cat /home/test_usr2/.zshrc | grep ^plugins= | grep test_plugin3 && cat /home/test_usr2/.zshrc | grep ^plugins= | grep test_plugin4"
+  # Check if themes are present
+  - >
+    sudo docker exec ${container_id} sh -c "cat /home/test_usr2/.zshrc | grep ^ZSH_THEME=.*test_theme2"
+  
+notifications:
+  webhooks: https://galaxy.ansible.com/api/v1/notifications/

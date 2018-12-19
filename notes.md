@@ -25,10 +25,20 @@ ansible all -i inventory_test -m setup -a "filter=ansible_mounts" --tree ./setup
 - condition clause: based on os family (```when: ansible_os_family == "Debian"```), based on output
 - using template: Jinja2 Engine
 
+```
+ansible-playbook -i hosts.local provision.yml --become
+```
+
 ## Roles => Making your playbooks reusable
 - Roles are a packages of closely related Ansible content that can be shared more easily than plays alone
 - pre_tasks, post_tasks
 - import_playbook: webservers.yml
+
+## Galaxy
+```
+ansible-galaxy install -p roles -r requirements.yml
+ansible-galaxy init app.test
+```
 
 ## [Working with Inventory](https://docs.ansible.com/ansible/latest/user_guide/intro_inventory.html#working-with-inventory)
 - Hosts and Groups

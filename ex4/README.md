@@ -18,4 +18,4 @@ ansible-playbook -i hosts.local provision.yml --become
 - oh-my-zsh
 - vscode
 - apt-fast
-- Fcitx-Unikey
+- fcitx-Unikey
