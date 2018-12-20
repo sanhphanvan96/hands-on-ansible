@@ -1,0 +1,8 @@
+---
+- hosts:
+    - ci
+    - ubuntu
+  strategy: free
+  roles:
+    - app.deploy
+

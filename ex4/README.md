@@ -9,7 +9,7 @@ vagrant init --minimal
 
 ```bash
 ansible-galaxy --ignore-errors install -p roles -r requirements.yml
-ansible-playbook -i hosts.local provision.yml --become
+ansible-playbook -i hosts.local provision.yml --become -usanhpv
 ```
 ## Will be installed:
 - git

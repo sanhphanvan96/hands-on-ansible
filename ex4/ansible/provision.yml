@@ -1,6 +1,7 @@
 ---
 - hosts:
     - ci
+    - ubuntu
   roles:
     - app.apt-fast
     - fourforbusiness.oh-my-zsh
@@ -8,3 +9,4 @@
     - geerlingguy.docker
     - app.fcitx-unikey
     - ngetchell.vscode
+    - cmprescott.chrome

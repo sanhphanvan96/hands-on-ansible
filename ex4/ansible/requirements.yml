@@ -6,3 +6,5 @@
 - src: fourforbusiness.oh-my-zsh
   version: 1.2.2
 - src: ngetchell.vscode
+- src: cmprescott.chrome
+  version: 0.2.4

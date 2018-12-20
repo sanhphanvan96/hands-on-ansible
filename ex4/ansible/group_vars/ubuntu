@@ -1,0 +1,27 @@
+# for oh-oh_my_zsh
+oh_my_zsh_theme: gnzh
+users:
+  - username: root
+    oh_my_zsh:
+      theme: gnzh
+      plugins:
+        - git
+        - docker 
+  - username: sanhpv
+    oh_my_zsh:
+      theme: gnzh
+      plugins:
+        - git
+        - docker 
+# for docker
+docker_users:
+  - root
+  - sanhpv
+
+# vscode
+vscode_install: true
+vscode_insiders_install: true
+
+# user
+process_execution_user: sanhpv
+user_home_directory: /home/{{process_execution_user}}

@@ -1,0 +1,8 @@
+---
+- name: Restart docker-compose
+  command: "{{ item }}"
+  args:
+    chdir: "/code"
+  with_items:
+    - "docker-compose down"
+    - "docker-compose up"

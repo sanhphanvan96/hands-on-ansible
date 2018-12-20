@@ -1,0 +1,24 @@
+---
+- name: Make code directory
+  file:
+    dest: "{{user_home_directory}}/code"
+    owner: "{{ process_execution_user }}"
+    group: "{{ process_execution_user }}"
+    state: directory
+
+- name: Clone repository
+  git:
+    repo: "https://github.com/sanhphanvan96/WebsiteChoThuePhongTro.git"
+    dest: "{{user_home_directory}}/code"
+    version: HEAD
+#   register: git_status
+#   notify: Restart docker-compose
+
+- name: Restart docker-compose
+  command: "{{ item }}"
+  args:
+    chdir: "{{user_home_directory}}/code"
+  with_items:
+    - "docker-compose down"
+    - "docker-compose up -d"
+#   run_once: true
