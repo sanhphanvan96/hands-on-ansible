@@ -1,2 +1,4 @@
 .vagrant/
 *.retry
+id_rsa.pub
+
