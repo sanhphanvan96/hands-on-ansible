@@ -1,7 +1,7 @@
 Vagrant.configure("2") do |config|
 
   # $1 is an parameter, will be injected later
-  # see: server.vm.provision :shell, inline: $script_test, args: "#{ENV['LOGNAME']}"
+  # see: server.vm.provision :shell, inline: $script_common, args: %x[whoami]
   $script_common = <<SCRIPT
   export DEBIAN_FRONTEND=noninteractive
 
