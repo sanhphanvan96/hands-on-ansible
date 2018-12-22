@@ -1,6 +1,6 @@
 # user
 process_execution_user: sanhpv
-user_home_directory: /home/{{process_execution_user}}
+user_home_directory: /home/{{ process_execution_user }}
 
 # for oh-oh_my_zsh
 users:
@@ -10,7 +10,13 @@ users:
       plugins:
         - git
         - docker 
-  - username: {{ process_execution_user }}
+  - username: vagrant
+    oh_my_zsh:
+      theme: gnzh
+      plugins:
+        - git
+        - docker
+  - username: "{{ process_execution_user }}"
     oh_my_zsh:
       theme: gnzh
       plugins:
@@ -19,7 +25,8 @@ users:
 # for docker
 docker_users:
   - root
-  - {{ process_execution_user }}
+  - vagrant
+  - "{{ process_execution_user }}"
 
 # vscode
 vscode_install: true

@@ -8,8 +8,8 @@ vagrant init --minimal
 ## Change current directory to ../ex4
 
 ```bash
-ansible-galaxy --ignore-errors install -p roles -r requirements.yml
-ansible-playbook -i hosts.local provision.yml --become -usanhpv
+ansible-galaxy --ignore-errors install -p roles -r requirements.yml # no need
+ansible-playbook -i hosts.local -l ci provision.yml --become -u$(whoami) # change group `ci``sanhpv`
 ```
 ## Will be installed:
 - git
