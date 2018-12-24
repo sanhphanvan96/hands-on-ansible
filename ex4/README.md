@@ -9,7 +9,7 @@ vagrant init --minimal
 
 ```bash
 ansible-galaxy --ignore-errors install -p roles -r requirements.yml # no need
-ansible-playbook -i hosts.local -l ci provision.yml --become -u$(whoami) # change group `ci``sanhpv`
+ansible-playbook -i hosts.local -l ci provision.yml --become -u$(whoami) # change group `ci`
 ```
 ## Will be installed:
 - git
