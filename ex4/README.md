@@ -13,7 +13,7 @@ ansible-playbook -i hosts.local -l ci provision.yml --become -u$(whoami) # chang
 ```
 ## Will be installed:
 - git
-- docker and docker-compose
+- docker and docker-compose => Deploy application: [https://github.com/sanhphanvan96/WebsiteChoThuePhongTro](https://github.com/sanhphanvan96/WebsiteChoThuePhongTro)
 - zsh
 - oh-my-zsh
 - vscode
